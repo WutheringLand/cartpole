@@ -28,20 +28,20 @@ class ScoreLogger:
 
     def add_score(self, score, run):
         self._save_csv(SCORES_CSV_PATH, score)
-        self._save_png(input_path=SCORES_CSV_PATH,
-                       output_path=SCORES_PNG_PATH,
-                       x_label="runs",
-                       y_label="scores",
-                       average_of_n_last=CONSECUTIVE_RUNS_TO_SOLVE,
-                       show_goal=True,
-                       show_trend=True,
-                       show_legend=True)
+        # self._save_png(input_path=SCORES_CSV_PATH,
+        #                 output_path=SCORES_PNG_PATH,
+        #                 x_label="runs",
+        #                 y_label="scores",
+        #                 average_of_n_last=CONSECUTIVE_RUNS_TO_SOLVE,
+        #                 show_goal=True,
+        #                 show_trend=True,
+        #                 show_legend=True)
         self.scores.append(score)
         mean_score = mean(self.scores)
-        print "Scores: (min: " + str(min(self.scores)) + ", avg: " + str(mean_score) + ", max: " + str(max(self.scores)) + ")\n"
+        print("Scores: (min: " + str(min(self.scores)) + ", avg: " + str(mean_score) + ", max: " + str(max(self.scores)) + ")\n")
         if mean_score >= AVERAGE_SCORE_TO_SOLVE and len(self.scores) >= CONSECUTIVE_RUNS_TO_SOLVE:
             solve_score = run-CONSECUTIVE_RUNS_TO_SOLVE
-            print "Solved in " + str(solve_score) + " runs, " + str(run) + " total runs."
+            print("Solved in " + str(solve_score) + " runs, " + str(run) + " total runs.")
             self._save_csv(SOLVED_CSV_PATH, solve_score)
             self._save_png(input_path=SOLVED_CSV_PATH,
                            output_path=SOLVED_PNG_PATH,
